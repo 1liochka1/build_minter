@@ -87,6 +87,7 @@ class holograph:
                 error = str(e)
                 if "insufficient funds for gas * price + value" in error:
                     logger.error(f'{address}:{self.chain} - нет баланса нативного токена')
+                    return address, 'error'
                 elif 'nonce too low' in error or 'already known' in error:
                     logger.info(f'{address}:{self.chain} - успешно заминтил...')
                     return address,'success'
