@@ -38,9 +38,9 @@ class holograph:
                 status = status['status']
                 if status in [0, 1]:
                     return status
-                time.sleep(1)
+                await asyncio.sleep(1)
             except Exception as error:
-                time.sleep(1)
+                await asyncio.sleep(1)
 
     async def balance(self):
         chainss = ['avax', 'polygon', 'bsc']
