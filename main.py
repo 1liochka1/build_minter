@@ -104,7 +104,8 @@ async def main():
         keys = [row.strip() for row in f]
         random.shuffle(keys)
 
-    batches = [keys[i:i + 5] for i in range(0, len(keys), 5)]
+    c = random.randint(2,5)
+    batches = [keys[i:i + c] for i in range(0, len(keys), c)]
     print(f'\n{" " * 32}автор - https://t.me/iliocka{" " * 32}\n')
     for batch in batches:
       
@@ -126,6 +127,9 @@ async def main():
         for address, result in results:
             res['address'].append(address)
             res['result'].append(result)
+        tt = random.randint(5, 60)
+        print(f'cплю {tt} с до некст кошелей')
+        await asyncio.sleep(tt)
 
     df = pd.DataFrame(res)
     df.to_csv('results.csv', mode='a', index=False)
