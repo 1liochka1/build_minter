@@ -30,7 +30,7 @@ class holograph:
         account = w3.eth.account.from_key(self.privatekey)
         address = account.address
 
-        logger.info(f'{address} - жду подтверждения транзакции')
+        logger.info(f'{address}:{self.chain} - жду подтверждения транзакции...')
 
         while True:
             try:
