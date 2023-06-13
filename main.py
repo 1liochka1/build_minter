@@ -21,6 +21,9 @@ class holograph:
         self.chain = chain if chain else ''
         self.drop_address = Web3.to_checksum_address('0x8C531f965C05Fab8135d951e2aD0ad75CF3405A2')
         self.mode = mode
+        self.count = random.randint(1,count_nfts)
+
+
     async def sleep_indicator(self,secs):
         for i in tqdm(range(secs), desc='жду', bar_format="{desc}: {n_fmt}c / {total_fmt}c {bar}", colour='green'):
             await asyncio.sleep(1)
@@ -70,10 +73,10 @@ class holograph:
             try:
                 nonce = await w3.eth.get_transaction_count(address)
                 contract = w3.eth.contract(address=self.drop_address, abi=abi)
-                tx = await contract.functions.purchase(1).build_transaction({
+                tx = await contract.functions.purchase(self.count).build_transaction({
                     'from': address,
                     'nonce': nonce,
-                    'gas': await contract.functions.purchase(1).estimate_gas({'from': address, 'nonce': nonce}),
+                    'gas': await contract.functions.purchase(self.count).estimate_gas({'from': address, 'nonce': nonce}),
                     'gasPrice': await w3.eth.gas_price,
                 })
                 sign = acc.sign_transaction(tx)
@@ -81,7 +84,7 @@ class holograph:
                 status = await self.check_status_tx(hash)
                 await self.sleep_indicator(5)
                 if status == 1:
-                    logger.info(f'{address}:{self.chain} - успешно заминтил {chains[self.chain][1]}{w3.to_hex(hash)}...')
+                    logger.info(f'{address}:{self.chain} - успешно заминтил {self.count} Builder {chains[self.chain][1]}{w3.to_hex(hash)}...')
                     return address,'success'
             except Exception as e:
                 error = str(e)
