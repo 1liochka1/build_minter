@@ -106,7 +106,7 @@ async def main():
     batches = [keys[i:i + 5] for i in range(0, len(keys), 5)]
     print(f'\n{" " * 32}автор - https://t.me/iliocka{" " * 32}\n')
     for batch in batches:
-        print(batch)
+      
         if mode == 0:
             for key in batch:
                 chain = CHAIN
