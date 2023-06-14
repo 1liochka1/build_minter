@@ -20,12 +20,12 @@ class Help:
         for i in tqdm(range(secs), desc='жду', bar_format="{desc}: {n_fmt}c / {total_fmt}c {bar}", colour='green'):
             await asyncio.sleep(1)
 class holograph(Help):
-    def __init__(self, privatekey, chain, mode):
+    def __init__(self, privatekey, chain, mode, count):
         self.privatekey = privatekey
         self.chain = chain if chain else ''
         self.drop_address = Web3.to_checksum_address('0x8C531f965C05Fab8135d951e2aD0ad75CF3405A2')
         self.mode = mode
-        self.count = count_nfts
+        self.count = count
 
     async def check_status_tx(self, tx_hash):
         w3 = Web3(Web3.AsyncHTTPProvider(chains[self.chain][0]), modules={'eth': (AsyncEth,)}, middlewares=[])
@@ -111,17 +111,18 @@ async def main():
     batches = [keys[i:i + c] for i in range(0, len(keys), c)]
     print(f'\n{" " * 32}автор - https://t.me/iliocka{" " * 32}\n')
     for batch in batches:
-      
+
         if mode == 0:
             for key in batch:
+                count = random.randint(count_nfts[0], count_nfts[1])
                 chain = CHAIN
-                boom = holograph(key, chain, mode)
+                boom = holograph(key, chain, mode,count)
                 tasks.append(boom.mint())
 
         elif mode == 1:
             for key in batch:
-
-                boom = holograph(key,mode=mode,chain=None)
+                count = random.randint(count_nfts[0], count_nfts[1])
+                boom = holograph(key,mode=mode,count=count,chain=None)
                 tasks.append(boom.mint())
 
         results = await asyncio.gather(*tasks)
