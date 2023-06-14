@@ -130,7 +130,7 @@ async def main():
         for address, result in results:
             res['address'].append(address)
             res['result'].append(result)
-        tt = random.randint(30, t)
+        tt = random.randint(start, end)
         logger.info(f'cплю {tt} с до некст кошелей...')
         await asyncio.sleep(tt)
 
