@@ -45,7 +45,7 @@ class holograph(Help):
                 await asyncio.sleep(1)
 
     async def balance(self):
-        chainss = ['avax', 'polygon', 'bsc','opti']
+        chainss = ['avax', 'polygon', 'bsc', 'opti']
         random.shuffle(chainss)
 
         for i in chainss:
